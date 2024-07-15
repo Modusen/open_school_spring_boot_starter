@@ -11,5 +11,7 @@ public class OpenschoolAutoconfiguration {
     @Bean
     public HttpRequestInterceptor httpRequestInterceptor(StarterProperties props) {
         return new HttpRequestInterceptor(props);
-    };
+    }
+
+    ;
 }

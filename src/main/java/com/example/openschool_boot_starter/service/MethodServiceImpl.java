@@ -1,14 +1,9 @@
 package com.example.openschool_boot_starter.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +17,7 @@ public class MethodServiceImpl implements MethodService {
         ResponseEntity<String[][]> response = restTemplate.getForEntity(URL_PLASMA_5_MIN, String[][].class);
         return response.getBody();
     }
+
     @Override
     public String[][] getSolarWindMagneticParams() {
         ResponseEntity<String[][]> response = restTemplate.getForEntity(URL_MAGNETIC_5_MIN, String[][].class);
