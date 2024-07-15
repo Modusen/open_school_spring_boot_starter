@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,20 +13,26 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
 public class HttpRequestInterceptor implements HandlerInterceptor {
 
     private final StarterProperties props;
+
+    private Logger logger = Logger.getLogger(HttpRequestInterceptor.class);
     private final String DELIMITER = "---------------------------------------------------------------------------------";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.info("PreHandle from user " + props.getUser() +
+                "\r\nMethod: " + request.getMethod() +
+                "\r\nURL: " + request.getRequestURL() +
+                "\r\n" + DELIMITER
+        );
         log.info("PreHandle from user {}\r\nMethod: {}\r\nURL: {}\r\n{}",
                 props.getUser(),
                 request.getMethod(),
                 request.getRequestURL(),
                 DELIMITER
-                );
+        );
         String requestId = UUID.randomUUID().toString();
         long startTime = System.currentTimeMillis();
         request.setAttribute("startTime", startTime);
